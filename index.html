@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>浏览器</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to bottom right, #f0f4f8, #e9ecef);
+      color: #343a40;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+   .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      transition: transform 0.3s;
+    }
+
+   .container:hover {
+      transform: scale(1.02);
+    }
+
+   .input-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #urlSelect {
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      margin-right: 10px;
+      background: white;
+      transition: border-color 0.3s;
+    }
+
+    #urlSelect:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    #urlInput {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      margin-right: 10px;
+      transition: border-color 0.3s;
+    }
+
+    #urlInput:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    #goButton {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    #goButton:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    #webView {
+      width: 100%;
+      height: 60vh;
+      border: none;
+      border-radius: 4px;
+      margin-top: 20px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s;
+    }
+
+    #webView:hover {
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 百度图标样式，使用本地图片 */
+    #baiduIcon {
+      width: 40px;
+      height: 40px;
+      margin: 15px 10px 15px 0;
+      cursor: pointer;
+      background-image: url('images/baidu.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: inline-block;
+      position :relative;
+      left: 10px;
+    }
+
+    /* 抖音图标样式，使用本地图片 */
+    #douyinIcon {
+      width: 40px;
+      height: 40px;
+      margin: 15px 0 15px 10px;
+      cursor: pointer;
+      background-image: url('images/douyin.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: inline-block;
+    }
+
+    /* 微信图标样式，使用本地图片，假设放在 'images' 文件夹下，可根据实际调整路径 */
+    #weixinIcon {
+      width: 40px;
+      height: 40px;
+      margin: 15px 0 15px 10px;
+      cursor: pointer;
+      background-image: url('images/qiyuan.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: inline-block;
+      
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>浏览器</h1>
+    <div class="input-group">
+      <select id="urlSelect">
+        <option value="http://">http://</option>
+        <option value="https://">https://</option>
+      </select>
+      <input type="text" id="urlInput" placeholder="输入网址 (例如: www.example.com)">
+      <button id="goButton">前往</button>
+    </div>
+    <div id="baiduIcon"></div>
+    <div id="douyinIcon"></div>
+    <div id="weixinIcon"></div>
+    <iframe id="webView"></iframe>
+  </div>
+
+  <script>
+    const urlInput = document.getElementById('urlInput');
+    const urlSelect = document.getElementById('urlSelect');
+    const goButton = document.getElementById('goButton');
+    const webView = document.getElementById('webView');
+    const baiduIcon = document.getElementById('baiduIcon');
+    const douyinIcon = document.getElementById('douyinIcon');
+    const weixinIcon = document.getElementById('weixinIcon');
+
+    function loadUrl() {
+      const url = urlSelect.value + urlInput.value.trim();
+      if (!url.startsWith('http://') &&!url.startsWith('https://')) {
+        alert('请输入有效的网址');
+        return;
+      }
+      webView.src = url;
+    }
+
+    goButton.onclick = loadUrl;
+
+    urlInput.addEventListener('keypress', function (event) {
+      if (event.key === 'Enter') {
+        loadUrl();
+      }
+    });
+
+    // 点击百度图标跳转到百度首页
+    baiduIcon.addEventListener('click', function () {
+      window.location.href = 'https://www.baidu.com';
+    });
+
+    // 点击抖音图标跳转到抖音官网
+    douyinIcon.addEventListener('click', function () {
+      window.location.href = 'https://www.douyin.com/';
+    });
+
+    // 点击汽院图标跳转到微信官网
+    weixinIcon.addEventListener('click', function () {
+      window.location.href = 'https://cn.bing.com/search?q=%E6%B9%96%E5%8C%97%E6%B1%BD%E8%BD%A6%E5%B7%A5%E4%B8%9A%E5%AD%A6%E9%99%A2%E5%AE%98%E7%BD%91&gs_lcrp=EgRlZGdlKgYIARBFGDsyBggAEEUYOTIGCAEQRRg7MgYIAhAAGEAyBggDEAAYQDIGCAQQABhAMgYIBRAuGEAyBggGEEUYPDIGCAcQRRg9MgYICBBFGD3SAQg2MzU1ajBqMagCCLACAQ&FORM=ANAB01&ucpdpc=UCPD&adppc=EdgeStart&PC=ASTS/';
+    });
+  </script>
+
+</body>
+
+</html>
